@@ -6,6 +6,7 @@ from .api.profile import router as profile_router
 from dotenv import load_dotenv
 load_dotenv()
 from .api.queue import router as queue_router
+from .api.match import router as match_router
 
 
 
@@ -24,6 +25,7 @@ app.include_router(onboarding_router)
 app.include_router(verification_router)
 app.include_router(profile_router)
 app.include_router(queue_router)
+app.include_router(match_router)
 
 
 @app.get("/health")

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from ..services.queue import join_queue, leave_queue, get_queue
+from ..services.queue import join_queue, leave_all_queues
 
 router = APIRouter(prefix="/queue", tags=["Queue"])
 
@@ -17,12 +17,12 @@ def join(data: QueueRequest):
 
 @router.post("/leave")
 def leave(data: QueueRequest):
-    leave_queue(data.device_id)
+    leave_all_queues(data.device_id)
     return {"status": "left"}
 
 
-@router.get("/status")
-def status():
-    return {
-        "queue": get_queue()
-    }
+# @router.get("/status")
+# def status():
+#     return {
+#         "queue": get_queue()
+#     }

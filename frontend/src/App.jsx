@@ -45,32 +45,38 @@ import { useState } from "react";
 import { getDeviceId } from "./utils/deviceId";
 
 function App() {
-  const [queueStatus, setQueueStatus] = useState("");
+  const [status, setStatus] = useState("");
+  const [preference, setPreference] = useState("any");
 
-  const joinQueue = async () => {
-    await fetch("http://127.0.0.1:8000/queue/join", {
+  const findMatch = async () => {
+    const res = await fetch("http://127.0.0.1:8000/match/find", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ device_id: getDeviceId() }),
+      body: JSON.stringify({
+        device_id: getDeviceId(),
+        preference,
+      }),
     });
-    setQueueStatus("Joined queue");
-  };
 
-  const leaveQueue = async () => {
-    await fetch("http://127.0.0.1:8000/queue/leave", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ device_id: getDeviceId() }),
-    });
-    setQueueStatus("Left queue");
+    const data = await res.json();
+    setStatus(JSON.stringify(data));
   };
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Queue Test</h1>
-      <button onClick={joinQueue}>Join Queue</button>
-      <button onClick={leaveQueue}>Leave Queue</button>
-      <p>{queueStatus}</p>
+      <h1>Matchmaking Test</h1>
+
+      <select onChange={(e) => setPreference(e.target.value)}>
+        <option value="any">Any</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+
+      <br /><br />
+
+      <button onClick={findMatch}>Find Match</button>
+
+      <p>{status}</p>
     </div>
   );
 }
