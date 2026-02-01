@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from .ws.socket import router as ws_router
 from .api.onboarding import router as onboarding_router
 from .api.verification import router as verification_router
 from .api.profile import router as profile_router
@@ -7,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from .api.queue import router as queue_router
 from .api.match import router as match_router
+
 
 
 
@@ -26,6 +28,7 @@ app.include_router(verification_router)
 app.include_router(profile_router)
 app.include_router(queue_router)
 app.include_router(match_router)
+app.include_router(ws_router)
 
 
 @app.get("/health")

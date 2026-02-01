@@ -41,42 +41,43 @@
 // export default App;
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getDeviceId } from "./utils/deviceId";
 
 function App() {
-  const [status, setStatus] = useState("");
-  const [preference, setPreference] = useState("any");
+  const [ws, setWs] = useState(null);
+  const [messages, setMessages] = useState([]);
 
-  const findMatch = async () => {
-    const res = await fetch("http://127.0.0.1:8000/match/find", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        device_id: getDeviceId(),
-        preference,
-      }),
-    });
+  useEffect(() => {
+    const socket = new WebSocket(
+      `ws://127.0.0.1:8000/ws?device_id=${getDeviceId()}`
+    );
 
-    const data = await res.json();
-    setStatus(JSON.stringify(data));
+    socket.onmessage = (event) => {
+      setMessages((prev) => [...prev, event.data]);
+    };
+
+    setWs(socket);
+
+    return () => socket.close();
+  }, []);
+
+  const sendMessage = () => {
+    if (ws) {
+      ws.send("Hello from client");
+    }
   };
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Matchmaking Test</h1>
+      <h1>WebSocket Test</h1>
+      <button onClick={sendMessage}>Send Test Message</button>
 
-      <select onChange={(e) => setPreference(e.target.value)}>
-        <option value="any">Any</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-
-      <br /><br />
-
-      <button onClick={findMatch}>Find Match</button>
-
-      <p>{status}</p>
+      <ul>
+        {messages.map((msg, i) => (
+          <li key={i}>{msg}</li>
+        ))}
+      </ul>
     </div>
   );
 }
