@@ -7,11 +7,15 @@ router = APIRouter(prefix="/queue", tags=["Queue"])
 
 class QueueRequest(BaseModel):
     device_id: str
+    preference: str = "any"
 
 
 @router.post("/join")
 def join(data: QueueRequest):
-    join_queue(data.device_id)
+    preference = data.preference.strip().lower()
+    joined = join_queue(data.device_id, preference)
+    if not joined:
+        return {"status": "blocked", "reason": "gender_not_verified"}
     return {"status": "joined"}
 
 

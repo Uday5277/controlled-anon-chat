@@ -1,0 +1,29 @@
+flowchart LR
+    A[Frontend] -->|/onboarding/init| B[FastAPI]
+    A -->|/verify/gender| B
+    A -->|/profile/setup| B
+    A -->|/match/find| B
+    A -->|/match/status| B
+    A -->|/queue/leave| B
+
+    B -->|Redis| C[(Redis)]
+
+    subgraph Queue & Match
+      B -->|join_queue| C
+      B -->|try_match| C
+      B -->|active_match| C
+    end
+
+    subgraph WebSocket Chat
+      A <--> |/ws?device_id=...| B
+      B -->|route to partner| A
+    end
+
+    subgraph AI Verification
+      B -->|DeepFace classify| D[Gender AI]
+      D -->|Result only| B
+    end
+
+    C -->|user:device_id| B
+    C -->|pref:device_id| B
+    C -->|limit:specific| B

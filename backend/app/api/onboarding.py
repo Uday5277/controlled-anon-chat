@@ -10,8 +10,14 @@ class OnboardingInitRequest(BaseModel):
 
 @router.post("/init")
 def init_onboarding(data: OnboardingInitRequest):
+    device_id = (data.device_id or "").strip()
+    if not device_id or len(device_id) < 8:
+        return {
+            "status": "error",
+            "message": "Invalid device ID"
+        }
     return {
         "status": "ok",
-        "device_id": data.device_id,
+        "device_id": device_id,
         "message": "Device registered for onboarding"
     }

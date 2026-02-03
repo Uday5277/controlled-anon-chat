@@ -1,0 +1,9 @@
+fastapi==0.128.0
+uvicorn==0.40.0
+pydantic==2.12.5
+redis==7.1.0
+python-dotenv==1.2.1
+python-multipart==0.0.22
+pillow==11.3.0
+opencv-python==4.13.0.90
+websockets==16.0

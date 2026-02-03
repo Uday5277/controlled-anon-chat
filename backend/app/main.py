@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from .api.queue import router as queue_router
 from .api.match import router as match_router
-
+from .api.safety import router as safety_router
 
 
 
@@ -28,6 +28,7 @@ app.include_router(verification_router)
 app.include_router(profile_router)
 app.include_router(queue_router)
 app.include_router(match_router)
+app.include_router(safety_router)
 app.include_router(ws_router)
 
 
