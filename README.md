@@ -6,8 +6,8 @@ A privacy-first real-time anonymous chat application that balances user anonymit
 
 ## 🔗 Live Demo
 
-Frontend: https://your-app.vercel.app  
-Backend: https://your-backend-name.onrender.com  
+Frontend: https://controlled-anon-chat.vercel.app/
+Backend: https://controlled-anon-chat.onrender.com/
 
 ---
 
