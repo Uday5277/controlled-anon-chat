@@ -6,8 +6,8 @@ A privacy-first real-time anonymous chat application that balances user anonymit
 
 ## 🔗 Live Demo
 
-Frontend: https://your-app.vercel.app  
-Backend: https://your-backend-name.onrender.com  
+Frontend: https://controlled-anon-chat.vercel.app/
+Backend: https://controlled-anon-chat.onrender.com/
 
 ---
 
@@ -84,5 +84,31 @@ python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+```
+###Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Environment Variables
+Backend .env
+```
+REDIS_URL=redis://:<password>@<host>:<port>
+```
+
+### Safety Mechanisms
+
+ 1. Reports stored in Redis
+
+2. Auto-ban after threshold
+
+3. Banned users blocked from matching & WebSockets
+
+### AI Module
+
+System uses a lightweight local classifier for MVP.
+Architecture supports plugging in DeepFace or cloud vision APIs without changing any API or flow.
 
 
