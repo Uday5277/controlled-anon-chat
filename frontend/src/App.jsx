@@ -598,7 +598,7 @@ import CameraCapture from "./components/cameraCapture.jsx";
 import ProfileSetup from "./components/ProfileSetup.jsx";
 import { getDeviceId } from "./utils/deviceId";
 
-const API_BASE = "https://controlled-anon-chat.onrender.com/";
+const API_BASE = "https://controlled-anon-chat.onrender.com";
 
 function App() {
   const deviceId = useMemo(() => getDeviceId(), []);
@@ -665,7 +665,7 @@ function App() {
 
     log("Connecting WebSocket to partner: " + partnerId.substring(0, 8) + "...");
     const socket = new WebSocket(
-      `ws://127.0.0.1:8000/ws?device_id=${deviceId}`
+       `wss://controlled-anon-chat.onrender.com/ws?device_id=${deviceId}`
     );
     wsRef.current = socket;
 

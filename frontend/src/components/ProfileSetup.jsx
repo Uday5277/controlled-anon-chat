@@ -73,7 +73,7 @@ function ProfileSetup({ onComplete }) {
     setError("");
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/profile/setup", {
+      const res = await fetch("https://controlled-anon-chat.onrender.com/profile/setup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
