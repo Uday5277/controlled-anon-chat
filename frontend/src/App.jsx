@@ -598,7 +598,7 @@ import CameraCapture from "./components/cameraCapture.jsx";
 import ProfileSetup from "./components/ProfileSetup.jsx";
 import { getDeviceId } from "./utils/deviceId";
 
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "https://controlled-anon-chat.onrender.com/";
 
 function App() {
   const deviceId = useMemo(() => getDeviceId(), []);
