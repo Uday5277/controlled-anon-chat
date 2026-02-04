@@ -1,35 +1,88 @@
 # Controlled Anonymity Chat
 
-A privacy-first 1-to-1 anonymous chat with AI gender verification, device fingerprinting, and safe matching.
+A privacy-first real-time anonymous chat application that balances user anonymity with safety using AI-assisted verification, intelligent matchmaking, and ephemeral messaging.
 
-## Features
-- Anonymous onboarding with device ID
-- Live camera gender verification
-- Pseudonymous profiles (nickname + short bio)
-- Real-time matching with filters and cooldowns
-- WebSocket chat with report/leave/next actions
-- Daily limits for specific gender filters
+---
 
-## Architecture
-- Diagram: docs/architecture.mmd
-- Privacy notes: docs/privacy.md
+## 🔗 Live Demo
 
-## Local Setup
+Frontend: https://your-app.vercel.app  
+Backend: https://your-backend-name.onrender.com  
+
+---
+
+## 📌 Problem Statement
+
+Traditional chat apps either require intrusive identity verification or allow unrestricted anonymity that leads to abuse.
+
+This system implements **Controlled Anonymity**:
+Users stay anonymous while the platform enforces safety using device-based identity, AI verification, and intelligent controls.
+
+---
+
+## ✅ Features
+
+- Anonymous onboarding (no email/phone)
+- Camera-only gender verification
+- No image storage
+- Pseudonymous profile (nickname + bio)
+- Intelligent matchmaking
+- Real-time WebSocket chat
+- Ephemeral messages
+- Report & auto-ban system
+- Cooldowns and daily limits
+
+---
+
+## 🧠 Tech Stack
+
+Frontend: React (Vite)  
+Backend: FastAPI (Python)  
+Realtime: WebSockets  
+Database: Redis Cloud  
+AI: Lightweight local classifier  
+
+---
+
+## 🏗 Architecture
+
+![Architecture](docs/Architecture.png)
+
+---
+
+## 🔐 Privacy by Design
+
+- Images processed only in memory
+- No images saved
+- No chat history stored
+- Only anonymous device ID used
+- No personally identifiable information
+
+---
+
+## ▶ End-to-End Flow
+
+1. User opens app  
+2. Device ID generated locally  
+3. Camera capture  
+4. Gender verified  
+5. Profile setup  
+6. Choose match preference  
+7. Find match  
+8. WebSocket chat begins  
+9. Leave / Next / Report  
+
+---
+
+## ⚙ Local Setup
 
 ### Backend
-1. Set REDIS_URL in a .env file under backend/ (e.g., redis://localhost:6379/0)
-2. Install dependencies: pip install -r backend/requirements.txt
-3. Run: uvicorn backend.app.main:app --reload
 
-### Frontend
-1. Install dependencies: npm install (in frontend/)
-2. Run: npm run dev
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
 
-## Core API
-- POST /onboarding/init
-- POST /verify/gender
-- POST /profile/setup
-- POST /match/find
-- POST /match/status
-- POST /queue/leave
-- WS /ws?device_id=...
+
